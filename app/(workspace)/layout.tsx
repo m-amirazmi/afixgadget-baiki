@@ -19,13 +19,13 @@ export default function WorkspaceLayout({ children }: { children: ReactNode }) {
             fallback={
               <div
                 aria-hidden="true"
-                className="hidden w-64 shrink-0 md:block"
+                className="hidden w-[17rem] shrink-0 md:block"
               />
             }
           >
             <WorkspaceSidebar />
           </Suspense>
-          <SidebarInset className="min-h-svh">
+          <SidebarInset>
             <Suspense
               fallback={
                 <header
@@ -36,7 +36,7 @@ export default function WorkspaceLayout({ children }: { children: ReactNode }) {
             >
               <WorkspaceHeader actions={<PosSwitcher />} />
             </Suspense>
-            <main className="flex flex-1 flex-col p-10">
+            <main className="flex flex-1 flex-col px-6 py-8 lg:px-10">
               {children}
             </main>
           </SidebarInset>

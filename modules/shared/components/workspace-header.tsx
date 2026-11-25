@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import {
   ChevronDown,
-  ChevronRight,
   Languages,
   LockKeyhole,
   Moon,
@@ -46,30 +45,21 @@ export function WorkspaceHeader({ actions }: { actions?: ReactNode }) {
           />
           <div className="hidden h-8 w-px bg-border sm:block" />
           <div className="min-w-0">
-            <div className="flex items-center gap-1 text-xs text-muted-foreground sm:text-sm">
-              <span>{t("page")}</span>
-              <ChevronRight className="size-3 sm:size-4" aria-hidden="true" />
-              <span className="truncate">{pageTitle}</span>
-            </div>
             <h1 className="truncate text-base font-semibold leading-6 sm:text-xl">
               {pageTitle}
             </h1>
           </div>
-          {actions}
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
-          <div className="hidden items-center gap-2 rounded-xl border bg-card px-3 py-1.5 lg:flex">
-            <div className="size-2 rounded-full bg-emerald-500" />
-            <div className="grid leading-tight">
-              <span className="text-xs text-muted-foreground">
-                {t("branch")}
-              </span>
-              <span className="text-sm font-semibold">HQ</span>
-            </div>
+          <div className="hidden h-11 items-center gap-2 rounded-xl border bg-card px-3 lg:flex">
+            <div className="size-2 animate-pulse rounded-full bg-emerald-500 motion-reduce:animate-none" />
+            <span className="text-sm font-semibold">HQ</span>
             <div className="mx-1 h-6 w-px bg-border" />
             <span className="text-sm font-medium">{t("staff")}</span>
           </div>
+
+          {actions}
 
           <Button
             aria-label={t("lockStaff")}
@@ -77,7 +67,7 @@ export function WorkspaceHeader({ actions }: { actions?: ReactNode }) {
             onClick={() => setIsLockNoticeOpen(true)}
             title={t("lockStaff")}
             type="button"
-            variant="outline"
+            variant="destructive"
           >
             <LockKeyhole aria-hidden="true" />
             <span className="hidden xl:inline">{t("lockStaff")}</span>
