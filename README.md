@@ -24,6 +24,26 @@ bun run db:migrate
 
 Run `bun run db:studio` to inspect the local database.
 
+For Neon deployment, use its pooled connection string (hostname includes
+`-pooler`) as `DATABASE_URL` for the app. Set `DATABASE_URL_UNPOOLED` to Neon’s
+direct connection string for migrations; `drizzle.config.ts` prefers it when
+running Drizzle Kit, while the app continues to use `DATABASE_URL`. Run
+`bun run db:migrate` once in the release pipeline before deploying code that
+needs the schema. Keep `bun run db:generate` in development and commit the
+generated migrations.
+
+For Vercel, add both Neon URLs as server-side environment variables for the
+appropriate Production and Preview environments. Also configure
+`BETTER_AUTH_SECRET` and `BETTER_AUTH_URL` in Vercel; use your deployed origin
+for the latter. Set Vercel's Build Command to:
+
+```bash
+bun run lint && bun run db:migrate && bun run build
+```
+
+Use a separate Neon branch for Preview deployments so their migrations cannot
+change the Production database.
+
 ## Authentication
 
 Authentication is organized as a feature module in `modules/auth/`: server
