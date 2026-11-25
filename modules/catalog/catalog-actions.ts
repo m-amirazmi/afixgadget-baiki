@@ -8,6 +8,7 @@ import {
   createCatalogItem,
   createCategory,
   createRepairTicket,
+  findReturningRepairCustomer,
   getRepairLookupBrands,
   getRepairLookupModels,
   setBrandActive,
@@ -110,6 +111,10 @@ export async function createRepairTicketAction(input: {
   serialOrImei?: string;
 }) {
   return createRepairTicket(input);
+}
+
+export async function findReturningRepairCustomerAction(phone: string) {
+  return findReturningRepairCustomer(phone);
 }
 
 export async function getRepairBrandsAction(categoryId: string) {

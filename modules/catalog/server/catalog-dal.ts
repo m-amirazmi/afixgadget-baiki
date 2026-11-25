@@ -1,6 +1,6 @@
 "server-only";
 
-import { and, asc, eq, inArray } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, isNotNull, sql } from "drizzle-orm";
 
 import { db } from "@/db";
 import {
@@ -35,6 +35,22 @@ export type CatalogModelView = {
   name: string;
   isActive: boolean;
 };
+
+type ReturningRepairCustomerResult =
+  | { ok: false; message: string }
+  | {
+      ok: true;
+      message: string;
+      customerName: string;
+      customerPhone: string;
+      categoryId: string;
+      categoryName: string;
+      brandId: string;
+      brandName: string;
+      modelId: string;
+      modelName: string;
+      serialOrImei: string;
+    };
 
 function normalizeName(value: string) {
   return value.trim().replace(/\s+/g, " ");
@@ -711,4 +727,65 @@ export async function createRepairTicket(input: {
     createdById: context.userId,
   });
   return { ok: true, id, ticketNumber, message: "Repair ticket created." };
+}
+
+export async function findReturningRepairCustomer(
+  phone: string,
+): Promise<ReturningRepairCustomerResult> {
+  const context = await getCatalogContext();
+  const normalizedPhone = phone.replace(/\D/g, "");
+  if (normalizedPhone.length < 7) {
+    return { ok: false, message: "Enter a valid phone number to search." };
+  }
+
+  const [ticket] = await db
+    .select({
+      customerName: repairTickets.customerName,
+      customerPhone: repairTickets.customerPhone,
+      categoryId: repairTickets.deviceCategoryId,
+      categoryName: repairTickets.deviceCategoryName,
+      brandId: repairTickets.deviceBrandId,
+      brandName: repairTickets.deviceBrandName,
+      modelId: repairTickets.deviceModelId,
+      modelName: repairTickets.deviceModelName,
+      serialOrImei: repairTickets.serialOrImei,
+    })
+    .from(repairTickets)
+    .where(
+      and(
+        eq(repairTickets.shopId, context.shopId),
+        sql`regexp_replace(${repairTickets.customerPhone}, '[^0-9]', '', 'g') = ${normalizedPhone}`,
+        isNotNull(repairTickets.deviceCategoryId),
+        isNotNull(repairTickets.deviceBrandId),
+      ),
+    )
+    .orderBy(desc(repairTickets.createdAt))
+    .limit(1);
+
+  if (!ticket) {
+    return {
+      ok: false,
+      message: "No previous repair with saved device details was found for that phone number.",
+    };
+  }
+  if (!ticket.categoryId || !ticket.brandId) {
+    return {
+      ok: false,
+      message: "No previous repair with saved device details was found for that phone number.",
+    };
+  }
+
+  return {
+    ok: true,
+    customerName: ticket.customerName,
+    customerPhone: ticket.customerPhone,
+    categoryId: ticket.categoryId,
+    categoryName: ticket.categoryName,
+    brandId: ticket.brandId,
+    brandName: ticket.brandName,
+    modelId: ticket.modelId ?? "other",
+    modelName: ticket.modelName,
+    serialOrImei: ticket.serialOrImei ?? "",
+    message: "Customer and latest device details loaded.",
+  };
 }
