@@ -1,5 +1,17 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, index, pgEnum } from "drizzle-orm/pg-core";
+
+export const userRole = pgEnum("user_role", ["OWNER", "STAFF"]);
+
+export const shops = pgTable("shops", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => /* @__PURE__ */ new Date())
+    .notNull(),
+});
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
@@ -7,6 +19,9 @@ export const users = pgTable("users", {
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").default(false).notNull(),
   image: text("image"),
+  shopId: text("shop_id").references(() => shops.id, { onDelete: "set null" }),
+  role: userRole("role").default("STAFF").notNull(),
+  pinHash: text("pin_hash"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()
@@ -73,9 +88,13 @@ export const verification = pgTable(
   (table) => [index("verification_identifier_idx").on(table.identifier)],
 );
 
-export const usersRelations = relations(users, ({ many }) => ({
+export const usersRelations = relations(users, ({ many, one }) => ({
   sessions: many(session),
   accounts: many(account),
+  shop: one(shops, {
+    fields: [users.shopId],
+    references: [shops.id],
+  }),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({

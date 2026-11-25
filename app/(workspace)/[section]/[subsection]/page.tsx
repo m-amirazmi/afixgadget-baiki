@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { ClipboardList, PackageSearch } from "lucide-react";
 
 import { PagePlaceholder } from "@/modules/shared/components/page-placeholder";
+import { CatalogWorkspace } from "@/modules/catalog/components/catalog-workspace";
+import { getCatalogWorkspace } from "@/modules/catalog/server/catalog-dal";
 
 const subsections = {
   "inventory/movements": {
@@ -52,6 +54,44 @@ async function CounterSubsectionContent({
   if (!isCounterSubsection(key)) notFound();
 
   const config = subsections[key];
+  if (key === "inventory/catalog") {
+    let workspace: Awaited<ReturnType<typeof getCatalogWorkspace>> | null = null;
+    let workspaceError: Error | null = null;
+    try {
+      workspace = await getCatalogWorkspace();
+    } catch (error) {
+      workspaceError =
+        error instanceof Error ? error : new Error("Owner access required.");
+    }
+    if (workspaceError || !workspace) {
+      return (
+        <PagePlaceholder
+          description="Only an authenticated shop owner can manage the master taxonomy."
+          icon={PackageSearch}
+          title="Owner access required"
+          hint={workspaceError?.message ?? "Owner access required."}
+        />
+      );
+    }
+    return (
+      <CatalogWorkspace
+        categories={workspace.categories}
+        brands={workspace.brands}
+        models={workspace.models}
+        items={workspace.items.map((item) => ({
+          id: item.id,
+          sku: item.sku,
+          name: item.name,
+          barcode: item.barcode,
+          categoryName: item.categoryName,
+          brandName: item.brandName,
+          modelName: item.modelName,
+          sellPriceMinor: item.sellPriceMinor,
+          isActive: item.isActive,
+        }))}
+      />
+    );
+  }
   return (
     <PagePlaceholder
       description={config.description}
