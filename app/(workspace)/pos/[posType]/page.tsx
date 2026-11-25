@@ -1,8 +1,7 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import { ShoppingBag, Wrench } from "lucide-react";
 
-import { isPosType, posTypes } from "@/modules/pos/pos-types";
+import { isPosType, PosEnum, posTypes } from "@/modules/pos/pos-types";
 import { PagePlaceholder } from "@/modules/shared/components/page-placeholder";
 
 export function generateStaticParams() {
@@ -35,22 +34,16 @@ async function PosTypeContent({
   if (!isPosType(posType)) notFound();
 
   const config = posTypes[posType];
-  const icon =
-    posType === "repair-intake"
-      ? Wrench
-      : posType === "product-sales"
-        ? ShoppingBag
-        : config.icon;
 
   return (
     <PagePlaceholder
       description={config.description}
       hint={
-        posType === "product-sales"
+        posType === PosEnum.ProductSales
           ? "Retail checkout and completed repair-ticket settlement will share one cart."
           : undefined
       }
-      icon={icon}
+      icon={config.icon}
       title={config.label}
     />
   );

@@ -41,8 +41,8 @@ import { cn } from "cn";
 
 const links = {
   dashboard: "/dashboard",
-  productSales: "/pos/product-sales",
-  repairIntake: "/pos/repair-intake",
+  productSales: "/pos/pos-product",
+  repairIntake: "/pos/pos-repair",
   liveStock: "/inventory",
   movements: "/inventory/movements",
   catalog: "/inventory/catalog",

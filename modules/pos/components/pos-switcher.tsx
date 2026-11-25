@@ -57,11 +57,7 @@ export function PosSwitcher() {
             >
               <Icon aria-hidden="true" />
               <span>
-                {type === "product-sales"
-                  ? t("productSales")
-                  : type === "repair-intake"
-                    ? t("repairIntake")
-                    : t("tradeIn")}
+                {t(pos.labelKey)}
               </span>
               {"comingSoon" in pos && pos.comingSoon && (
                 <span className="ml-auto text-xs text-muted-foreground">

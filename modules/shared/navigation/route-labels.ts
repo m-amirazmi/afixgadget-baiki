@@ -1,8 +1,8 @@
 export function getRouteLabelKey(pathname: string) {
   if (pathname === "/dashboard") return "routes.dashboard";
-  if (pathname === "/pos/product-sales") return "routes.productSales";
-  if (pathname === "/pos/repair-intake") return "routes.repairIntake";
-  if (pathname === "/pos/trade-in") return "routes.tradeIn";
+  if (pathname === "/pos/pos-product") return "routes.productSales";
+  if (pathname === "/pos/pos-repair") return "routes.repairIntake";
+  if (pathname === "/pos/pos-tradein") return "routes.tradeIn";
   if (pathname === "/inventory/movements") return "routes.movements";
   if (pathname === "/inventory/catalog") return "routes.catalog";
   if (pathname.startsWith("/inventory")) return "routes.liveStock";

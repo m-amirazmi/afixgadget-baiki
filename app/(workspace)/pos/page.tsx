@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
 
+import { PosEnum } from "@/modules/pos/pos-types";
+
 export default function PosIndexPage() {
-  redirect("/pos/product-sales");
+  redirect(`/pos/${PosEnum.ProductSales}`);
 }
