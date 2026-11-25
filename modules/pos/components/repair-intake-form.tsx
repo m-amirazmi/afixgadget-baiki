@@ -519,7 +519,7 @@ export function RepairIntakeForm({
           </footer>
         </main>
 
-        <aside className="sticky top-0 hidden min-h-0 self-start overflow-y-auto border-l bg-card p-5 lg:block">
+        <aside className="sticky top-0 hidden h-full min-h-0 overflow-hidden border-l bg-card p-5 lg:block">
           <h2 className="text-base font-semibold">
             {t("repairWizard.summaryTitle")}
           </h2>
