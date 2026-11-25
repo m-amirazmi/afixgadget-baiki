@@ -13,6 +13,11 @@ than scattering it across generic `components/`, `lib/`, or `utils/` folders.
   feature UI, `client/` for browser-only integrations, and `server/` for
   credentials, persistence, and server operations. Create only the directories
   a feature needs.
+- `modules/shared/` owns cross-feature UI and behavior used across the
+  authenticated workspace, such as its navigation shell and user preferences.
+  Keep feature-specific actions in their feature modules and compose them into
+  shared shell components at the route boundary. Store localized UI strings in
+  the shared `react-i18next` locale resources, not in component files.
 - `db/` owns the shared Drizzle client and schema definitions. Keep one shared
   connection rather than creating a database client per feature.
 - `drizzle/` contains generated, ordered database migrations. Generate and
@@ -64,7 +69,8 @@ not contain authentication rules.
 ## Adding a feature
 
 1. Create `modules/<feature>/` and organize its UI, browser integration, and
-   server operations by responsibility.
+   server operations by responsibility. Put genuinely cross-feature concerns
+   in `modules/shared/`.
 2. Keep `app/<route>/page.tsx` or `app/api/<route>/route.ts` focused on wiring
    the route to that feature.
 3. Keep module-internal imports within the module. Expose only the server or

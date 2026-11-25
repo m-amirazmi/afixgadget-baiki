@@ -1,0 +1,60 @@
+{
+  "dashboard": "Papan pemuka",
+  "pointOfSale": "Jualan",
+  "productSales": "Jualan produk",
+  "repairIntake": "Penerimaan pembaikan",
+  "tradeIn": "Tukar beli",
+  "inventory": "Inventori & stok",
+  "liveStock": "Stok cawangan",
+  "movements": "Pergerakan stok",
+  "catalog": "Katalog & harga",
+  "repairs": "Pengurusan pembaikan",
+  "activeTickets": "Tiket aktif",
+  "users": "Pengguna & peranan",
+  "settings": "Tetapan kedai",
+  "switchPos": "Tukar POS",
+  "lockStaff": "Kunci / tukar staf",
+  "branch": "Cawangan",
+  "staff": "Staf",
+  "language": "Bahasa",
+  "darkMode": "Mod gelap",
+  "account": "Akaun",
+  "page": "Halaman",
+  "menu": "Menu",
+  "closeMenu": "Tutup menu",
+  "workspace": "Ruang kerja staf",
+  "staffWorkspace": "Ruang kerja staf",
+  "staffWorkspaceDescription": "Aktiviti cawangan dan peralatan staf di satu tempat.",
+  "demoWorkspace": "Ruang kerja demo",
+  "soon": "Akan datang",
+  "lockTitle": "Kunci staf belum disambungkan",
+  "lockDescription": "Pratonton ini belum mempunyai backend sesi PIN. Fungsi kunci akan disambungkan apabila pengesahan staf dilaksanakan.",
+  "returnToWorkspace": "Kembali ke ruang kerja",
+  "posTypes": {
+    "product": {
+      "label": "Jualan produk",
+      "description": "Jual produk dan selesaikan tiket pembaikan yang telah siap."
+    },
+    "repair": {
+      "label": "Penerimaan pembaikan",
+      "description": "Daftarkan peranti dan mulakan tiket pembaikan."
+    },
+    "tradein": {
+      "label": "Tukar beli",
+      "description": "Nilai dan proses tukar beli peranti."
+    }
+  },
+  "routes": {
+    "dashboard": "Papan pemuka",
+    "productSales": "Jualan produk",
+    "repairIntake": "Penerimaan pembaikan",
+    "tradeIn": "Tukar beli",
+    "liveStock": "Stok cawangan",
+    "movements": "Pergerakan stok",
+    "catalog": "Katalog & harga",
+    "repairs": "Pengurusan pembaikan",
+    "activeTickets": "Tiket aktif",
+    "users": "Pengguna & peranan",
+    "settings": "Tetapan kedai"
+  }
+}
