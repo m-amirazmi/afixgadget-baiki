@@ -1,7 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Check, ChevronLeft, ChevronRight, Smartphone, UserRound } from "lucide-react";
+import {
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  Info,
+  Smartphone,
+  UserRound,
+} from "lucide-react";
 import { useState, useTransition } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -384,15 +391,28 @@ export function RepairIntakeForm({
 
           {step === 0 ? (
             <div className="shrink-0 border-t bg-background px-5 py-3 sm:px-8 lg:px-10">
-              <div className="rounded-lg border border-primary/25 bg-accent/50 p-3 sm:px-4">
+              <div
+                aria-labelledby="returning-customer-heading"
+                className="rounded-lg border border-sky-200 bg-sky-50 p-3 text-sky-950 dark:border-sky-900 dark:bg-sky-950/30 dark:text-sky-100 sm:px-4"
+                role="note"
+              >
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div>
-                    <p className="font-medium">
-                      {t("repairWizard.returningCustomer")}
-                    </p>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {t("repairWizard.returningDescription")}
-                    </p>
+                  <div className="flex items-start gap-3">
+                    <Info
+                      aria-hidden="true"
+                      className="mt-0.5 size-5 shrink-0 text-sky-700 dark:text-sky-300"
+                    />
+                    <div>
+                      <p
+                        id="returning-customer-heading"
+                        className="font-medium"
+                      >
+                        {t("repairWizard.returningCustomer")}
+                      </p>
+                      <p className="mt-1 text-sm text-sky-800/80 dark:text-sky-200/80">
+                        {t("repairWizard.returningDescription")}
+                      </p>
+                    </div>
                   </div>
                   <Button
                     type="button"
@@ -433,7 +453,7 @@ export function RepairIntakeForm({
                 {returningStatus ? (
                   <p
                     aria-live="polite"
-                    className="mt-3 text-sm text-muted-foreground"
+                    className="mt-3 text-sm text-sky-800/80 dark:text-sky-200/80"
                   >
                     {returningStatus}
                   </p>
@@ -442,7 +462,7 @@ export function RepairIntakeForm({
             </div>
           ) : null}
 
-          <footer className="flex shrink-0 items-center justify-between gap-3 border-t bg-background px-5 py-4 sm:px-8 lg:px-10">
+          <footer className="sticky bottom-0 z-10 flex shrink-0 items-center justify-between gap-3 border-t bg-background px-5 py-4 shadow-[0_-4px_12px_hsl(0_0%_0%_/_0.04)] sm:px-8 lg:px-10">
             <div className="flex items-center gap-2">
               <Button
                 type="button"
