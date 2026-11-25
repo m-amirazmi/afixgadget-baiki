@@ -10,7 +10,7 @@ export type PosType = (typeof PosEnum)[keyof typeof PosEnum];
 
 type PosTypeDefinition = {
   label: string;
-  labelKey: "productSales" | "repairIntake" | "tradeIn";
+  labelKey: PosType;
   description: string;
   icon: LucideIcon;
   comingSoon?: boolean;
@@ -19,19 +19,19 @@ type PosTypeDefinition = {
 export const posTypes = {
   [PosEnum.ProductSales]: {
     label: "Product sales",
-    labelKey: "productSales",
+    labelKey: PosEnum.ProductSales,
     description: "Sell products and settle completed repair tickets.",
     icon: ShoppingBag,
   },
   [PosEnum.RepairIntake]: {
     label: "Repair intake",
-    labelKey: "repairIntake",
+    labelKey: PosEnum.RepairIntake,
     description: "Register a device and start a repair ticket.",
     icon: Wrench,
   },
   [PosEnum.TradeIn]: {
     label: "Trade-in",
-    labelKey: "tradeIn",
+    labelKey: PosEnum.TradeIn,
     description: "Assess and process a device trade-in.",
     icon: ArrowLeftRight,
     comingSoon: true,
