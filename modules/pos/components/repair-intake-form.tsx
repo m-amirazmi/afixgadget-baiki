@@ -149,7 +149,7 @@ export function RepairIntakeForm({
   ][step] ?? "";
 
   return (
-    <div className="-mx-4 -my-8 flex min-h-0 flex-1 flex-col overflow-hidden bg-background sm:-mx-6 lg:-mx-10">
+    <div className="-mx-4 -my-8 flex h-[calc(100dvh-4.5rem)] min-h-0 flex-none flex-col overflow-hidden bg-background sm:-mx-6 lg:-mx-10">
       <ol
         aria-label={t("repairWizard.progress")}
         className="hidden h-12 shrink-0 items-center justify-center gap-2 border-b px-3 md:flex"

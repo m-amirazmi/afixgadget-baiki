@@ -6,6 +6,7 @@ import ms from "./locales/ms.json";
 
 if (!i18n.isInitialized) {
   void i18n.use(initReactI18next).init({
+    initAsync: false,
     resources: {
       en: { translation: en },
       ms: { translation: ms },
