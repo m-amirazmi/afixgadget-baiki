@@ -31,7 +31,14 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export function WorkspaceHeader({ actions }: { actions?: ReactNode }) {
   const pathname = usePathname();
-  const { locale, setLocale, isDark, setIsDark } = useWorkspacePreferences();
+  const {
+    locale,
+    setLocale,
+    isDark,
+    setIsDark,
+    fontSize,
+    setFontSize,
+  } = useWorkspacePreferences();
   const { t } = useTranslation();
   const [isLockNoticeOpen, setIsLockNoticeOpen] = useState(false);
   const pageTitle = t(getRouteLabelKey(pathname));
@@ -128,6 +135,32 @@ export function WorkspaceHeader({ actions }: { actions?: ReactNode }) {
                 </DropdownMenuRadioItem>
                 <DropdownMenuRadioItem value="en">
                   English <span className="ml-auto text-muted-foreground">EN</span>
+                </DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>{t("textSize")}</DropdownMenuLabel>
+              </DropdownMenuGroup>
+              <DropdownMenuRadioGroup
+                value={fontSize}
+                onValueChange={(value) => {
+                  if (
+                    value === "small" ||
+                    value === "medium" ||
+                    value === "large"
+                  ) {
+                    setFontSize(value);
+                  }
+                }}
+              >
+                <DropdownMenuRadioItem value="small">
+                  {t("small")}
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="medium">
+                  {t("medium")}
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="large">
+                  {t("large")}
                 </DropdownMenuRadioItem>
               </DropdownMenuRadioGroup>
               <DropdownMenuSeparator />

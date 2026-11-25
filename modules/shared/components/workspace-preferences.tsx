@@ -13,12 +13,15 @@ import {
 import i18n from "../i18n";
 
 export type Locale = "en" | "ms";
+export type FontSize = "small" | "medium" | "large";
 
 type WorkspacePreferences = {
   locale: Locale;
   setLocale: (locale: Locale) => void;
   isDark: boolean;
   setIsDark: (isDark: boolean) => void;
+  fontSize: FontSize;
+  setFontSize: (fontSize: FontSize) => void;
 };
 
 const WorkspacePreferencesContext = createContext<WorkspacePreferences | null>(
@@ -26,6 +29,7 @@ const WorkspacePreferencesContext = createContext<WorkspacePreferences | null>(
 );
 
 const THEME_CHANGE_EVENT = "baiki-theme-change";
+const FONT_SIZE_CHANGE_EVENT = "baiki-font-size-change";
 
 function readCookie(name: string) {
   if (typeof document === "undefined") return undefined;
@@ -44,9 +48,11 @@ function subscribe(onChange: () => void) {
   const onLanguageChange = () => onChange();
   i18n.on("languageChanged", onLanguageChange);
   window.addEventListener(THEME_CHANGE_EVENT, onChange);
+  window.addEventListener(FONT_SIZE_CHANGE_EVENT, onChange);
   return () => {
     i18n.off("languageChanged", onLanguageChange);
     window.removeEventListener(THEME_CHANGE_EVENT, onChange);
+    window.removeEventListener(FONT_SIZE_CHANGE_EVENT, onChange);
   };
 }
 
@@ -58,12 +64,21 @@ function getThemeSnapshot() {
   return readCookie("baiki_theme") === "dark";
 }
 
+function getFontSizeSnapshot(): FontSize {
+  const fontSize = readCookie("baiki_font_size");
+  return fontSize === "medium" || fontSize === "large" ? fontSize : "small";
+}
+
 function getServerLocaleSnapshot(): Locale {
   return "en";
 }
 
 function getServerThemeSnapshot() {
   return false;
+}
+
+function getServerFontSizeSnapshot(): FontSize {
+  return "small";
 }
 
 export function WorkspacePreferencesProvider({
@@ -80,6 +95,11 @@ export function WorkspacePreferencesProvider({
     subscribe,
     getThemeSnapshot,
     getServerThemeSnapshot,
+  );
+  const fontSize = useSyncExternalStore(
+    subscribe,
+    getFontSizeSnapshot,
+    getServerFontSizeSnapshot,
   );
 
   useEffect(() => {
@@ -99,6 +119,11 @@ export function WorkspacePreferencesProvider({
     window.dispatchEvent(new Event(THEME_CHANGE_EVENT));
   }, []);
 
+  const setFontSize = useCallback((nextFontSize: FontSize) => {
+    writeCookie("baiki_font_size", nextFontSize);
+    window.dispatchEvent(new Event(FONT_SIZE_CHANGE_EVENT));
+  }, []);
+
   useEffect(() => {
     document.documentElement.lang = locale === "ms" ? "ms-MY" : "en";
   }, [locale]);
@@ -107,14 +132,20 @@ export function WorkspacePreferencesProvider({
     document.documentElement.classList.toggle("dark", isDark);
   }, [isDark]);
 
+  useEffect(() => {
+    document.documentElement.dataset.fontSize = fontSize;
+  }, [fontSize]);
+
   const value = useMemo(
     () => ({
       locale,
       setLocale,
       isDark,
       setIsDark,
+      fontSize,
+      setFontSize,
     }),
-    [isDark, locale, setIsDark, setLocale],
+    [fontSize, isDark, locale, setFontSize, setIsDark, setLocale],
   );
 
   return (
