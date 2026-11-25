@@ -36,7 +36,7 @@ export default function WorkspaceLayout({ children }: { children: ReactNode }) {
             >
               <WorkspaceHeader actions={<PosSwitcher />} />
             </Suspense>
-            <main className="flex flex-1 flex-col px-6 py-8 lg:px-10">
+            <main className="flex flex-1 flex-col px-4 py-8 sm:px-6 lg:px-10">
               {children}
             </main>
           </SidebarInset>
