@@ -1,9 +1,12 @@
-import { LoginForm } from "@/modules/auth/components/login-form";
+import { RoutePlaceholder } from "@/modules/example/components/route-placeholder";
 
 export default function LoginPage() {
-  const googleEnabled = Boolean(
-    process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET,
+  return (
+    <RoutePlaceholder
+      description="The production sign-in screen is reserved for the upcoming application UI."
+      exampleHref="/example/login"
+      exampleLabel="View login example"
+      title="Login page placeholder"
+    />
   );
-
-  return <LoginForm googleEnabled={googleEnabled} />;
 }

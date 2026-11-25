@@ -35,19 +35,19 @@ framework-specific headers/cookies. Feature modules own the application
 behavior behind those routes. Keep route handlers thin and avoid duplicating
 session or authorization checks across pages and endpoints.
 
-## Current authentication module
-
-Authentication is the reference implementation of these boundaries:
+## Authentication module
 
 ```text
 app/
   api/auth/[...all]/route.ts       # Better Auth's Next.js adapter
-  login/page.tsx                   # Route composition and server config flags
+  login/page.tsx                   # Placeholder for the future production sign-in UI
+  example/login/page.tsx           # Route composition for the sign-in example
 modules/auth/
-  components/login-form.tsx        # Interactive sign-in/sign-up UI
   client/auth-client.ts            # Browser-side Better Auth client
   server/auth.ts                   # Better Auth configuration and providers
   server/session.ts                # Server-side session access
+modules/example/
+  components/login-form.tsx        # Demo sign-in/sign-up UI
 db/
   index.ts                         # Shared Drizzle connection
   schema.ts                        # Schema entry point
@@ -56,8 +56,10 @@ db/
 
 Keep Better Auth configuration, provider credentials, and session reads inside
 `modules/auth/server/`. Keep browser calls in
-`modules/auth/client/auth-client.ts`. The catch-all route should remain a thin
-adapter and should not contain authentication rules.
+`modules/auth/client/auth-client.ts`. The sign-in form is an example UI under
+`modules/example/`; `/login` remains a placeholder and `/example/login` composes
+the example form. The catch-all route should remain a thin adapter and should
+not contain authentication rules.
 
 ## Adding a feature
 
