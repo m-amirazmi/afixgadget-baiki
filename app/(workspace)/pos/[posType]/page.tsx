@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
 import { isPosType, PosEnum, posTypes } from "@/modules/pos/pos-types";
+import { PosPagePlaceholder } from "@/modules/pos/components/pos-page-placeholder";
 import { PagePlaceholder } from "@/modules/shared/components/page-placeholder";
 
 export function generateStaticParams() {
@@ -33,18 +34,14 @@ async function PosTypeContent({
   const { posType } = await params;
   if (!isPosType(posType)) notFound();
 
-  const config = posTypes[posType];
-
   return (
-    <PagePlaceholder
-      description={config.description}
+    <PosPagePlaceholder
+      posType={posType}
       hint={
         posType === PosEnum.ProductSales
           ? "Retail checkout and completed repair-ticket settlement will share one cart."
           : undefined
       }
-      icon={config.icon}
-      title={config.label}
     />
   );
 }

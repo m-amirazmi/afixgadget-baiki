@@ -4,9 +4,6 @@
   "productSales": "Product sales",
   "repairIntake": "Repair intake",
   "tradeIn": "Trade-in",
-  "pos-product": "Product sales",
-  "pos-repair": "Repair intake",
-  "pos-tradein": "Trade-in",
   "inventory": "Inventory & stock",
   "liveStock": "Live branch stock",
   "movements": "Stock movements",
@@ -33,6 +30,20 @@
   "lockTitle": "Staff lock is not connected yet",
   "lockDescription": "This layout preview does not have the required PIN session backend. The lock action will be connected when staff authentication is implemented.",
   "returnToWorkspace": "Return to workspace",
+  "posTypes": {
+    "product": {
+      "label": "Product sales",
+      "description": "Sell products and settle completed repair tickets."
+    },
+    "repair": {
+      "label": "Repair intake",
+      "description": "Register a device and start a repair ticket."
+    },
+    "tradein": {
+      "label": "Trade-in",
+      "description": "Assess and process a device trade-in."
+    }
+  },
   "routes": {
     "dashboard": "Dashboard",
     "productSales": "Product sales",

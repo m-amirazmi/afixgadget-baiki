@@ -4,9 +4,6 @@
   "productSales": "Jualan produk",
   "repairIntake": "Penerimaan pembaikan",
   "tradeIn": "Tukar beli",
-  "pos-product": "Jualan produk",
-  "pos-repair": "Penerimaan pembaikan",
-  "pos-tradein": "Tukar beli",
   "inventory": "Inventori & stok",
   "liveStock": "Stok cawangan",
   "movements": "Pergerakan stok",
@@ -33,6 +30,20 @@
   "lockTitle": "Kunci staf belum disambungkan",
   "lockDescription": "Pratonton ini belum mempunyai backend sesi PIN. Fungsi kunci akan disambungkan apabila pengesahan staf dilaksanakan.",
   "returnToWorkspace": "Kembali ke ruang kerja",
+  "posTypes": {
+    "product": {
+      "label": "Jualan produk",
+      "description": "Jual produk dan selesaikan tiket pembaikan yang telah siap."
+    },
+    "repair": {
+      "label": "Penerimaan pembaikan",
+      "description": "Daftarkan peranti dan mulakan tiket pembaikan."
+    },
+    "tradein": {
+      "label": "Tukar beli",
+      "description": "Nilai dan proses tukar beli peranti."
+    }
+  },
   "routes": {
     "dashboard": "Papan pemuka",
     "productSales": "Jualan produk",
